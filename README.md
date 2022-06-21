@@ -20,7 +20,7 @@ pip install flask
 点response
 ![image](https://user-images.githubusercontent.com/61929966/174842731-845f97a1-87ab-40b6-b1c8-0ab2a0c3a9a5.png)
 搜索ticket
-![image](https://user-images.githubusercontent.com/61929966/174843237-691c245d-1740-41bc-9cf3-5daddd2fc6ce.png)
+![image](https://user-images.githubusercontent.com/61929966/174845061-6210c838-a8e8-4375-a832-aacf3a8670ab.png)
 可以复制出来，获取需要的票种的id
 ![image](https://user-images.githubusercontent.com/61929966/174843735-d091cc47-d3cb-4303-afce-87f85d461cad.png)
 
