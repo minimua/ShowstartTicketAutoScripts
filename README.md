@@ -3,9 +3,9 @@
 ## 秀动抢票
 
 ### 1.安装对应版本的chromedriver
-网址：https://registry.npmmirror.com/binary.html?path=chromedriver/
-安装方法很简单，可自行百度
-修改`driver.py`中的`executable_path`值为chromedriver的位置
+网址：https://registry.npmmirror.com/binary.html?path=chromedriver/  
+安装方法很简单，可自行百度  
+修改`driver.py`中的`executable_path`值为chromedriver的位置  
 
 ### 2.引入需要的包
 ```
