@@ -88,6 +88,26 @@ def confirm_ticket(payBtn):
 
             return
 
+def select_people(driver, num: int):
+    # 打开身份证列表
+    pleaseSelect = WebDriverWait(driver, 3).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, '.link-item>.rr>.tips')))
+    pleaseSelect.click()
+
+    for select_index in range(num):
+        # 按照顺序选择观演人
+        selector = f".uni-scroll-view-content > uni-checkbox-group > uni-label:nth-child({select_index + 1})"
+        checkBox = WebDriverWait(driver, 3).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
+        checkBox.click()
+
+    # 确认
+    confirm = WebDriverWait(driver, 3).until(
+        EC.visibility_of_element_located((By.CSS_SELECTOR, '.pop-box>.pop-head>uni-view:nth-child(2)')))
+    confirm.click()
+
+    return
+
 
 def quit_driver(driver):
     try:
@@ -96,7 +116,15 @@ def quit_driver(driver):
         print(f'quit err: {e}')
 
 
-def create_instance(chrome_driver, ticketId: str, event: str, ticketNum: str, start_time: str = None):
+def create_instance(
+        chrome_driver,
+        ticketId: str,
+        event: str,
+        ticketNum: str = '1',
+        start_time: str = None,
+        need_select: bool = False,
+        select_num: int = 1,
+):
     # TODO: 多窗口操作
     # 获取支付按钮 这里不能直接 goto，应该是由 driver 新开标签页或者新窗口然后进行句柄的轮询，
     # 看看能不能给对应窗口或者标签页一个 tag 进行标记
@@ -106,12 +134,17 @@ def create_instance(chrome_driver, ticketId: str, event: str, ticketNum: str, st
                   f"&ioswx=1&terminal=app&from=singlemessage&isappinstalled=0"
     pay_btn = goto_confirm_url(chrome_driver, confirm_url)
 
+    # 判断是否需要进行选择观演人
+    print(f'是否需要选择观演人: {need_select}, 如果需要, 选择数量: {select_num}')
+    if need_select:
+        select_people(driver=chrome_driver, num=int(select_num))
+
     if start_time is None:  # 直接抢
         print(f'开始抢票')
         confirm_ticket(pay_btn)
     else:
         # 处理时间
-        start_time = "2022 06 15 00 00 00"
+        start_time = "2022 06 21 20 00 00"
         t1 = time.mktime(time.strptime(start_time, "%Y %m %d %H %M %S"))
         while True:
             if t1 - time.time() < float(wait_time):

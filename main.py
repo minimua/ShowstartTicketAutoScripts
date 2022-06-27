@@ -1,7 +1,7 @@
 from driver import load_driver
 from app import create_app
 from concurrent.futures import ThreadPoolExecutor
-from gevent import pywsgi
+
 
 if __name__ == '__main__':
     driver = load_driver()
